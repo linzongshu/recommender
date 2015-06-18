@@ -1,0 +1,128 @@
+body {
+    background-color: #fbfbfb;
+    color: #333;
+    font-family: "微软雅黑",Tahoma,"Helvetica Neue",Helvetica,Arial;
+}
+
+/* Toper bar */
+.toper-fixed-header {
+    height: 40px;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #d3d0d1;
+    
+    line-height: 40px;
+    vertical-align: middle;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.toper-fixed-header .site-title {
+    width: 60%;
+    float: left;
+}
+.toper-fixed-header .account-info {
+    float: right;
+}
+
+/* Header */
+.container .header {
+    height: 100px;
+}
+
+/* Navigation */
+.navigation ul.nav {
+    list-style: none;
+    width: 100%;
+    background-color: #fb5d00;
+    border-radius: 4px;
+    border: 1px solid #fb660e;
+    margin-top: 20px;
+    
+    padding-left: 0;
+    z-index: 900;
+}
+.navigation ul.nav > li {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    
+    cursor: pointer;
+    display: inline-block;
+    z-index: 900;
+}
+.navigation ul.nav > li > a {
+    padding: 10px 20px;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+}
+.navigation ul.nav > li:hover ul {
+    display: table;
+}
+.navigation ul.nav > li:hover > a {
+    color: #fb5d00;
+    background-color: #fff;
+}
+.navigation ul.nav ul {
+    display: none;
+}
+.navigation ul.nav > li > ul {
+    font-weight: normal;
+    font-size: 14px;
+    list-style: none;
+    color: #333;
+    
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #e5e6e6;
+    border-top: none;
+    padding-left: 0;
+    min-width: 150px;
+    white-space: nowrap;
+}
+.navigation ul.nav > li > ul > li:hover {
+    background-color: #e5e6e6;
+}
+.navigation ul.nav > li > ul > li:hover > a {
+    text-decoration: none;
+}
+.navigation ul.nav > li > ul li {
+    padding: 5px 15px;
+}
+.navigation ul.nav > li > ul a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Content */
+.container .content {
+    margin-top: 20px;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    text-align: center;
+    
+    background-color: #eee;
+    border-top: 1px solid #d3d0d1;
+    padding: 10px 0 20px 0;
+    margin-top: 20px;
+    
+    font-size: 12px;
+}
+.footer .caption span {
+    margin-left: 10px;
+}
+
+.container .page-title {
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid #e5e6e6;
+    margin-bottom: 10px;
+}
+.container form {
+    margin: 20px 0 10px 0;
+}
