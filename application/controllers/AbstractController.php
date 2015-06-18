@@ -68,4 +68,23 @@ abstract class AbstractController extends CI_Controller
     {
         return true;
     }
+    
+    /**
+     * Assemble URL string according to parameters
+     * 
+     * @param string $action
+     * @param array  $params
+     * @return string
+     */
+    protected function url($action, array $params = array())
+    {
+        $basic = array(
+            'section'    => 'admin',
+            'controller' => 'business',
+            'action'     => $action,
+        );
+        $params = array_merge($basic, $params);
+        
+        return assembleUrl($params);
+    }
 }
