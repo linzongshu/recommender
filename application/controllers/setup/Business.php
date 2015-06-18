@@ -104,6 +104,7 @@ class Business extends AbstractSetup
             'secret'         => $secret,
             'active'         => 1,
             'time_created'   => time(),
+            'in_use'         => 1,
         );
         $this->db->insert($businessTable, $business);
         
