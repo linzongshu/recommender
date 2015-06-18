@@ -14,13 +14,14 @@ class Tag_detail extends TagModel
     protected $engine = 'MERGE';
     
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
-    protected $partition = array(
-        'type'  => 'horizontal',
-        'mode'  => 'id',
-        'step'  => 100000,
-        'field' => 'id',
+    protected $segment = array(
+        0   => array(
+            'mode'  => 'id',
+            'step'  => 100000,
+            'field' => 'id',
+        ),
     );
     
     /**
@@ -36,12 +37,9 @@ class Tag_detail extends TagModel
      */
     public function parseCreationSql($query = null, $options = array())
     {
-        $sql = array();
-        for ($i = 0; $i < 10; $i++) {
-            $options[$this->partition['field']] = $i * $this->partition['step'];
-            $sql[]    = parent::parseCreationSql($query, $options) . "\r\n";
-            $tables[] = $this->getTable($options);
-        }
+        $sql      = array();
+        $sql[]    = parent::parseCreationSql($query, $options) . "\r\n";
+        $tables[] = $this->getTable($options, 'suffix');
         
         $unionTable = sprintf(
             '%s%s_%s',

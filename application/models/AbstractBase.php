@@ -99,9 +99,11 @@ abstract class AbstractBase extends CI_Model
     /**
      * Get table name
      * 
+     * @param  array  $options  Optional parameters for generating table name
+     * @param  string $type     Return table with suffix, prefix or raw
      * @return string
      */
-    abstract public function getTable();
+    abstract public function getTable($options = array(), $type = 'suffix');
 
     /**
      * Get all fields of table.

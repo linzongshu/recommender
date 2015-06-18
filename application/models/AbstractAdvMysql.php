@@ -10,60 +10,96 @@ abstract class AbstractAdvMysql extends AbstractBaseMysql
 {
     /**
      * Table segmentation config
+     * - <mode>: Segment table by which mode
+     * - <step>: Data size of each table
+     * - <field>: Field used for segmentation
+     * 
      * @var array 
      */
-    protected $partition = array(
-        // This type only need to create table in other host, no extra tables
-        // need to create
-        'type'  => 'vertical',
-        // Segment table by which mode if type is horizontal
-        //'mode'  => null,
-        // Segment step
-        //'step'  => null,
-        // Field use for segmentation
-        //'field' => null,
-    );
+    protected $segment = array();
+    
+    /**
+     * Initialize segmentation config
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->canonizeSegment();
+    }
+    
+    /**
+     * Format segment array
+     */
+    protected function canonizeSegment()
+    {
+        foreach ($this->segment as &$segment) {
+            foreach (array('mode', 'step', 'field') as $key) {
+                if (!isset($segment[$key])) {
+                    $segment[$key] = null;
+                }
+            }
+        }
+    }
     
     /**
      * {@inheritDoc}
      */
-    public function getTable($data = array())
+    public function getTable($options = array(), $type = 'suffix')
     {
-        if ('horizontal' !== $this->partition['type']) {
-            return parent::getTable();
+        $data  = $options;
+        $table = parent::getTable(array(), 'prefix');
+        
+        if ('raw' === $type) {
+            return $this->table;
+        } elseif ('prefix' === $type) {
+            return $table;
+        } elseif ('suffix' !== $type) {
+            return '';
         }
         
-        $suffix = '';
-        $value  = isset($data[$this->partition['field']])
-            ? $data[$this->partition['field']] : null;
-        $step   = $this->partition['step'];
-        switch ($this->partition['mode']) {
-            case 'id':
-                $value  = null === $value ? 1 : $value;
-                $suffix = floor($value / $step) + 1;
-                break;
-            case 'year':
-                $value  = null === $value ? time() : $value;
-                if (!is_numeric($value)) {
-                    $value = strtotime($value);
-                }
-                $suffix = date('Y', $value);
-                break;
-            case 'mod':
-                $value  = null === $value ? 1 : $value;
-                $suffix = ($value % $step) + 1;
-                break;
-            case 'md5':
-                $suffix = ord(substr(md5($value), 0, $step));
-            default:
-                $suffix = '';
-                break;
-        }
-        if ($suffix) {
-            $suffix = '_' . $suffix;
+        foreach ($this->segment as $segment) {
+            $suffix = '';
+            
+            $value = null;
+            if (isset($data[$segment['field']])) {
+                $value = $data[$segment['field']];
+            }
+            $step  = $segment['step'];
+            switch ($segment['mode']) {
+                case 'id':
+                    $value  = $value ?: 1;
+                    $suffix = floor($value / $step) + 1;
+                    break;
+                case 'year':
+                    $value  = $value ?: time();
+                    if (!is_numeric($value)) {
+                        $value = strtotime($value);
+                    }
+                    $suffix = date('Y', $value);
+                    break;
+                case 'mod':
+                    $value  = $value ?: 1;
+                    $suffix = ($value % $step) + 1;
+                    break;
+                case 'md5':
+                    $suffix = ord(substr(md5($value), 0, $step));
+                    break;
+                case 'field':
+                    $value  = $value ?: 'default';
+                    $suffix = $value;
+                    break;
+                default:
+                    $suffix = '';
+                    break;
+            }
+            
+            if ($suffix) {
+                $table .= '_' . $suffix;
+            }
         }
         
-        return parent::getTable() . $suffix;
+        return $table;
     }
     
     /**

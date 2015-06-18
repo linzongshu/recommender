@@ -137,9 +137,21 @@ EOD;
     /**
      * {@inheritDoc}
      */
-    public function getTable()
+    public function getTable($options = array(), $type = 'suffix')
     {
-        return sprintf('%s%s_%s', $this->config['prefix'], $this->section, $this->table);
+        $table = sprintf('%s%s_%s', $this->config['prefix'], $this->section, $this->table);
+        
+        if ('raw' === $type) {
+            return $this->table;
+        } elseif ('suffix' === $type) {
+            if (isset($options['suffix'])) {
+                $table .= '_' . $options['suffix'];
+            }
+        } elseif ('prefix' !== $type) {
+            $table = '';
+        }
+        
+        return $table;
     }
     
     /**

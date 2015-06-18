@@ -11,11 +11,12 @@ abstract class UserModel extends AbstractAdvMysql
     /**
      * {@inheritDoc}
      */
-    protected $partition = array(
-        'type'  => 'horizontal',
-        'mode'  => 'id',
-        'step'  => 100000,
-        'field' => 'uid',
+    protected $segment = array(
+        0   => array(
+            'mode'  => 'id',
+            'step'  => 100000,
+            'field' => 'uid',
+        ),
     );
     
     /**

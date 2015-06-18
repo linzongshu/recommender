@@ -4,7 +4,7 @@
 CREATE TABLE `{tag_marker}` (
   `id`              int(10) UNSIGNED                NOT NULL AUTO_INCREMENT,
   # Item ID
-  `iid`             int(10) UNSIGNED                NOT NULL DEFAULT 0,
+  `item`            int(10) UNSIGNED                NOT NULL DEFAULT 0,
   # Tag ID
   `tid`             int(10) UNSIGNED                NOT NULL DEFAULT 0,
   # Marker ID
@@ -13,7 +13,7 @@ CREATE TABLE `{tag_marker}` (
   `time_created`    int(10) UNSIGNED                NOT NULL DEFAULT 0,
 
   PRIMARY KEY     (`id`),
-  KEY             (`iid`)
+  KEY             (`item`)
 );
 
 # Scores a user show to an item

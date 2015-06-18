@@ -9,13 +9,14 @@ require_once 'TagModel.php';
 class Tag_relevancy extends TagModel
 {
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
-    protected $partition = array(
-        'type'  => 'horizontal',
-        'mode'  => 'id',
-        'step'  => 100000,
-        'field' => 'tid',
+    protected $segment = array(
+        0   => array(
+            'mode'  => 'id',
+            'step'  => 100000,
+            'field' => 'tid',
+        ),
     );
     
     public function count($where = array())

@@ -3,7 +3,7 @@
 # User details
 CREATE TABLE `{detail}` (
   # User ID
-  `id`              int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `uid`             int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `username`        char(32)                        NOT NULL DEFAULT '',
   # Nick name
   `name`            varchar(255)                    NOT NULL DEFAULT '',

@@ -3,7 +3,7 @@
 # Item details
 CREATE TABLE `{detail}` (
   # Item ID
-  `id`              int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `iid`             int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `business`        tinyint(1)                      NOT NULL DEFAULT 0,
   # Item title
   `title`           varchar(255)                    NOT NULL DEFAULT '',
@@ -13,7 +13,7 @@ CREATE TABLE `{detail}` (
 # Item extend details
 CREATE TABLE `{meta}` (
   # Item ID
-  `id`              int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `iid`             int(10) UNSIGNED                NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `meta`            text                            DEFAULT NULL
 );
 

@@ -11,21 +11,23 @@ abstract class StatsModel extends AbstractAdvMysql
     /**
      * {@inheritDoc}
      */
-    public function count($where = array())
-    {
-        
-    }
+    protected $segment = array(
+        0   => array(
+            'mode'  => 'field',
+            'field' => 'business',
+        ),
+        1   => array(
+            'mode'  => 'id',
+            'step'  => 5000000,
+            'field' => 'item',
+        ),
+    );
     
     /**
      * {@inheritDoc}
      */
-    public function getTable($data = array())
+    public function count($where = array())
     {
-        $business = 'default';
-        if (isset($data['business'])) {
-            $business = $data['business'];
-        }
         
-        return sprintf('%s_%s', parent::getTable($data), $business);
     }
 }
