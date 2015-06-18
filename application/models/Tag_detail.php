@@ -51,12 +51,29 @@ class Tag_detail extends TagModel
         $unionSql = rtrim($unionSql, ';');
         $unionSql .= ' ENGINE=' 
                . $this->engine 
-               . ' UNION=(' 
+               . ' DEFAULT CHARSET=utf8 UNION=(' 
                . implode(',', $tables) 
                . ') INSERT_METHOD=LAST;';
         $sql[] = $unionSql;
         
         return $sql;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected function parseEngineString()
+    {
+        $autoIncrement = '';
+        if ($this->autoIncrement) {
+            $autoIncrement = ' AUTO_INCREMENT=' . $this->autoIncrement;
+        }
+        
+        $result =<<<EOD
+ENGINE=MyISAM DEFAULT CHARSET=utf8{$autoIncrement}
+EOD;
+        
+        return $result;
     }
     
     /**
